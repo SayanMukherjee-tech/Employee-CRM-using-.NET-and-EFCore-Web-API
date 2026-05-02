@@ -1,0 +1,64 @@
+@model IEnumerable<EmployeeCRM.Core.Entities.TaskItem>
+
+@{
+    ViewData["Title"] = "Tasks";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Task Management</h2>
+        <a class="btn btn-primary" asp-action="Create">Add Task</a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Due Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in Model)
+                    {
+                        <tr>
+                            <td>@task.Id</td>
+                            <td>@task.Title</td>
+                            <td>@task.Description</td>
+                            <td>
+                                @if (task.Status == "Completed")
+                                {
+                                    <span class="badge bg-success">@task.Status</span>
+                                }
+                                else if (task.Status == "In Progress")
+                                {
+                                    <span class="badge bg-primary">@task.Status</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">@task.Status</span>
+                                }
+                            </td>
+                            <td>@task.DueDate.ToShortDateString()</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-info">View</button>
+                                <button class="btn btn-sm btn-outline-warning">Edit</button>
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-4 text-muted">No tasks found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

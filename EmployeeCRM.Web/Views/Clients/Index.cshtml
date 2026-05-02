@@ -1,0 +1,51 @@
+@model IEnumerable<EmployeeCRM.Core.Entities.Client>
+
+@{
+    ViewData["Title"] = "Clients";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Client Management</h2>
+        <a class="btn btn-primary" asp-action="Create">Add Client</a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Company</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var client in Model)
+                    {
+                        <tr>
+                            <td>@client.Id</td>
+                            <td>@client.Name</td>
+                            <td>@client.Company</td>
+                            <td>@client.Email</td>
+                            <td>@client.Phone</td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-info">View</button>
+                                <button class="btn btn-sm btn-outline-warning">Edit</button>
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-4 text-muted">No clients found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

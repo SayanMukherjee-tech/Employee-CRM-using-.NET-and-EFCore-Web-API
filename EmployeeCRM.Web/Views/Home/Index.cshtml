@@ -1,0 +1,88 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <h2 class="fw-bold">Company Dashboard</h2>
+            <p class="text-muted">Overview of employee statistics and operational summary.</p>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 h-100 bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Employees</h5>
+                    <h2 class="display-5 fw-bold">@ViewBag.TotalEmployees</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 h-100 bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Active Employees</h5>
+                    <h2 class="display-5 fw-bold">@ViewBag.ActiveEmployees</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 h-100 bg-info text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Clients</h5>
+                    <h2 class="display-5 fw-bold">@ViewBag.TotalClients</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm border-0 h-100 bg-warning text-dark">
+                <div class="card-body">
+                    <h5 class="card-title">Tasks</h5>
+                    <h2 class="display-5 fw-bold">@ViewBag.CompletedTasks / @ViewBag.TotalTasks</h2>
+                    <p class="mb-0">Completed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+                    <h5 class="fw-bold">Performance Progress</h5>
+                </div>
+                <div class="card-body">
+                    @{
+                        double taskPercentage = ViewBag.TotalTasks > 0 ? ((double)ViewBag.CompletedTasks / ViewBag.TotalTasks) * 100 : 0;
+                    }
+                    <p class="mb-1">Overall Task Completion</p>
+                    <div class="progress mb-4" style="height: 25px;">
+                        <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: @taskPercentage%;" aria-valuenow="@taskPercentage" aria-valuemin="0" aria-valuemax="100">@taskPercentage.ToString("0.0")%</div>
+                    </div>
+
+                    <p class="mb-1">Active Workforce</p>
+                    @{
+                        double activePercentage = ViewBag.TotalEmployees > 0 ? ((double)ViewBag.ActiveEmployees / ViewBag.TotalEmployees) * 100 : 0;
+                    }
+                    <div class="progress" style="height: 25px;">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: @activePercentage%;" aria-valuenow="@activePercentage" aria-valuemin="0" aria-valuemax="100">@activePercentage.ToString("0.0")%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white border-bottom-0 pt-4 pb-0">
+                    <h5 class="fw-bold">Recent Activities</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item px-0">You logged in as @User.Identity?.Name.</li>
+                        <li class="list-group-item px-0 text-muted">Data synchronized from Web API.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
